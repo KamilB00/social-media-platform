@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class PostServiceImpl implements PostService {
 
         private final PostRepository postRepository;
@@ -37,7 +36,6 @@ public class PostServiceImpl implements PostService {
             if(p.isPresent()){
                //update post
             }
-
 
           //  return postRepository.save(p);
         }

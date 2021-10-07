@@ -12,4 +12,6 @@ public interface PostRepository{
     List<Post> findAllByUser(User user);
     List<Post> findAll();
     void delete(Post post);
+
+
 }
