@@ -3,6 +3,7 @@ package com.socialmediaplatform.infrastructure.repository;
 import com.socialmediaplatform.domain.publisher.Post;
 import lombok.*;
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Data
@@ -11,17 +12,18 @@ import javax.persistence.*;
 @Table(name = "posts")
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 public class PostTuple {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private boolean isEdited;
     @ManyToOne
     private UserTuple user;
     private String content;
-    private String publicationDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date publicationDate;
 
     static PostTuple from(Post post){
         return new PostTuple(

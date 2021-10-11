@@ -1,26 +1,34 @@
 package com.socialmediaplatform.api;
 
 
+import com.socialmediaplatform.api.dto.PostDTO;
 import com.socialmediaplatform.domain.publisher.Post;
 import com.socialmediaplatform.domain.publisher.PublisherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController("/posts")
+@RestController
+@RequestMapping("api/publisher")
 @RequiredArgsConstructor
-public class PostController {
+public class PublisherController {
 
     private final PublisherService postService;
 
-    @PostMapping
-    public Post createPost(@RequestBody Post post){
-        return postService.createPost(post);
+    @PostMapping("/posts")
+    public Post createPost(@RequestBody PostDTO postDTO){
+        return postService.createPost(postDTO);
+    }
+
+    @GetMapping("/posts")
+    public List<Post> getAllPosts(){
+        return postService.getAllPosts();
     }
 
     @GetMapping
-    public List<Post> getAllPosts(){
-        return postService.getAllPosts();
+    public String getHello() {
+        return postService.hello();
     }
 
 

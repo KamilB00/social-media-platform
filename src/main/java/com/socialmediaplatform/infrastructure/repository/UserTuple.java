@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Table(name="users")
+
 public class UserTuple {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

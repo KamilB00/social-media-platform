@@ -1,10 +1,21 @@
 package com.socialmediaplatform.domain.publisher;
 
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface PublisherService {
-   Post createPost(Post post);
+   Post createPost(Command.CreatePost createPostCommand);
    List<Post> getAllPosts();
+   String hello();
+
+   interface Command {
+      interface CreatePost extends Command{
+        boolean isEdited();
+        String getContent();
+        Date getPublicationDate();
+      }
+   }
 
 }

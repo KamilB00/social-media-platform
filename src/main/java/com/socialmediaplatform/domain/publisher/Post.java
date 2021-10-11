@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.socialmediaplatform.domain.user.User;
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Builder
 @EqualsAndHashCode(of = "id")
@@ -15,6 +17,6 @@ public class Post {
     @JsonIgnore
     private final User user;
     private final String content;
-    private final String publicationDate;
+    private final Date publicationDate;
 
 }
