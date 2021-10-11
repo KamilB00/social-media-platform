@@ -1,7 +1,7 @@
 package com.socialmediaplatform.infrastructure.repository;
 
-import com.socialmediaplatform.domain.post.Post;
-import com.socialmediaplatform.domain.post.PostRepository;
+import com.socialmediaplatform.domain.publisher.Post;
+import com.socialmediaplatform.domain.publisher.PostRepository;
 import com.socialmediaplatform.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +15,7 @@ public class JpaPostRepositoryImpl implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        return null;
+        return jpaPostRepo.save(PostTuple.from(post)).toDomain();
     }
 
     @Override

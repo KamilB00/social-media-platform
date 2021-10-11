@@ -1,6 +1,6 @@
 package com.socialmediaplatform.infrastructure.repository;
 
-import com.socialmediaplatform.domain.post.Post;
+import com.socialmediaplatform.domain.publisher.Post;
 import lombok.*;
 import javax.persistence.*;
 
@@ -31,5 +31,14 @@ public class PostTuple {
                 post.getContent(),
                 post.getPublicationDate()
                 );
+    }
+    Post toDomain(){
+        return Post.builder()
+                .id(id)
+                .isEdited(isEdited)
+                .user(user.toDomain())
+                .content(content)
+                .publicationDate(publicationDate)
+                .build();
     }
 }

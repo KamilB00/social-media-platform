@@ -1,18 +1,17 @@
 package com.socialmediaplatform.api;
 
 
-import com.socialmediaplatform.domain.post.Post;
-import com.socialmediaplatform.domain.post.PostService;
+import com.socialmediaplatform.domain.publisher.Post;
+import com.socialmediaplatform.domain.publisher.PublisherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController("/posts")
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostService postService;
+    private final PublisherService postService;
 
     @PostMapping
     public Post createPost(@RequestBody Post post){
@@ -20,24 +19,9 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> fetchPostsList(){
-        return postService.fetchPostsList();
+    public List<Post> getAllPosts(){
+        return postService.getAllPosts();
     }
 
-    @GetMapping("/{id}")
-    public Post fetchPostById(@PathVariable("id") Long postId){
-        return postService.fetchPostById(postId);
-    }
-
-    @PutMapping("/{id}")
-    public Post updatePostById(@PathVariable("id") Long postId, @RequestBody Post post){
-        return postService.updatePostById(postId,post);
-    }
-
-    @DeleteMapping("/{id}")
-    public String deletePostById(@PathVariable("id") Long postId){
-        postService.deletePostById(postId);
-        return "Post has been successfully deleted";
-    }
 
 }

@@ -1,4 +1,4 @@
-package com.socialmediaplatform.domain.post;
+package com.socialmediaplatform.domain.publisher;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
