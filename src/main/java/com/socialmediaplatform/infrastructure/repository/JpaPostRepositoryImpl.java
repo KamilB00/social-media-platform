@@ -48,7 +48,7 @@ public class JpaPostRepositoryImpl implements PostRepository {
     }
 
     public interface JpaPostRepo extends JpaRepository<PostTuple, Long> {
-        List<PostTuple> findAllByUser(UserTuple user);
-        Optional<PostTuple> findAllByIdAndUser(Long id, UserTuple user);
+        List<PostTuple> findAllByAuthor(UserTuple author);
+        Optional<PostTuple> findAllByIdAndAuthor(Long id, UserTuple author);
     }
 }

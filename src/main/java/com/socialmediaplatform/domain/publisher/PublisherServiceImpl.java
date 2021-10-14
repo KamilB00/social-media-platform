@@ -30,11 +30,6 @@ public class PublisherServiceImpl implements PublisherService {
             return postRepository.findAll();
         }
 
-    @Override
-    public String hello() {
-        return "Hello";
-    }
-
 }
 
 

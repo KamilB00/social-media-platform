@@ -18,9 +18,6 @@ import java.util.stream.Collectors;
 
 public class UserTuple {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true,nullable = false)
     private String username;
     @Size(min = 8)
     private String password;
@@ -28,13 +25,12 @@ public class UserTuple {
     private String surname;
     @Column(unique = true,nullable = false)
     private String email;
-   private String dateOfBirth;
+    private String dateOfBirth;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<RoleTuple> roles;
 
     static UserTuple from(User user){
         return new UserTuple(
-                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getName(),
@@ -47,7 +43,6 @@ public class UserTuple {
     }
     User toDomain(){
         return User.builder()
-                .id(id)
                 .username(username)
                 .password(password)
                 .name(name)
