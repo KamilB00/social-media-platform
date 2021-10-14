@@ -10,35 +10,34 @@ import java.util.Date;
 @Entity
 @Builder
 @Table(name = "posts")
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class PostTuple {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean isEdited;
     @ManyToOne
-    private UserTuple user;
+    private UserTuple author;
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date publicationDate;
 
     static PostTuple from(Post post){
-        return new PostTuple(
-                post.getId(),
-                post.isEdited(),
-                UserTuple.from(post.getUser()),
-                post.getContent(),
-                post.getPublicationDate()
-                );
+        return PostTuple.builder()
+                .author(UserTuple.from(post.getAuthor()))
+                .id(post.getId())
+                .content(post.getContent())
+                .isEdited(post.isEdited())
+                .publicationDate(post.getPublicationDate())
+                .build();
     }
     Post toDomain(){
         return Post.builder()
                 .id(id)
                 .isEdited(isEdited)
-                .user(user.toDomain())
+                .author(author.toDomain())
                 .content(content)
                 .publicationDate(publicationDate)
                 .build();

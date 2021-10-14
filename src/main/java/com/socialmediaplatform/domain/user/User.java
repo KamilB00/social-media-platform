@@ -5,11 +5,10 @@ import java.util.List;
 
 @Getter
 @Builder
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "username")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private Long id;
     private String username;
     private String password;
     private String name;
@@ -17,4 +16,5 @@ public class User {
     private String email;
     private String dateOfBirth;
     private List<Role> roles;
+
 }
