@@ -1,11 +1,14 @@
 package com.socialmediaplatform.infrastructure.repository;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.socialmediaplatform.domain.user.User;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +22,19 @@ import java.util.stream.Collectors;
 public class UserTuple {
     @Id
     private String username;
+
     @Size(min = 8)
     private String password;
     private String name;
     private String surname;
+
     @Column(unique = true,nullable = false)
     private String email;
-    private String dateOfBirth;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern= "yyyy-MM-dd")
+    private Date dateOfBirth;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<RoleTuple> roles;
 

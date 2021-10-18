@@ -2,6 +2,7 @@ package com.socialmediaplatform.domain.user;
 
 import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {
@@ -17,6 +18,7 @@ public interface UserService {
                 String getUsername();
                 String getPassword();
                 String getName();
+                Date getDateOfBirth();
                 String getSurname();
                 String getEmail();
             }
