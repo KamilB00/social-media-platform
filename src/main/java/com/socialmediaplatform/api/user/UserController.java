@@ -4,6 +4,7 @@ import com.socialmediaplatform.api.user.dto.UserDTO;
 import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 import com.socialmediaplatform.api.user.dto.UserLoginDTO;
 import com.socialmediaplatform.domain.user.User;
+import com.socialmediaplatform.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final UserService userService;
 
     @PostMapping("/signup")
     public User createUser(@RequestBody UserDTO userDTO){

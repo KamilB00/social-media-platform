@@ -1,5 +1,6 @@
 package com.socialmediaplatform.api.user.dto;
 
+import com.socialmediaplatform.domain.user.UserService;
 import lombok.*;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDTO implements UserService.Command.CreateUser {
     private String username;
     private String password;
     private String name;
