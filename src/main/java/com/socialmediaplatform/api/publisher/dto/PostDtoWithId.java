@@ -15,6 +15,7 @@ public class PostDtoWithId implements PublisherService.Command.CreatePost {
     private final String authorEmail;
     private final Date publicationDate;
 
+    // to delete
     public static PostDtoWithId fromDomain(Post post) {
         return PostDtoWithId.builder()
                 .id(post.getId())

@@ -1,20 +1,20 @@
 package com.socialmediaplatform.domain.user;
 
 import lombok.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Builder
 @EqualsAndHashCode(of = "username")
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class User {
-    private String username;
-    private String password;
-    private String name;
-    private String surname;
-    private String email;
-    private String dateOfBirth;
-    private List<Role> roles;
-
+    private final String username;
+    private final String password;
+    private final String name;
+    private final String surname;
+    private final String email;
+    private final Date dateOfBirth;
+    private final List<Role> roles;
 }

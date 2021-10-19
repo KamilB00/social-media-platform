@@ -1,5 +1,6 @@
 package com.socialmediaplatform.infrastructure.repository;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.socialmediaplatform.domain.publisher.Post;
 import lombok.*;
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class PostTuple {
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern= "dd-MM-yyyy")
     private Date publicationDate;
 
     static PostTuple from(Post post){
