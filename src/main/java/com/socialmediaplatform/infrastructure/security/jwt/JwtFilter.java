@@ -13,22 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JwtTokenFilter extends OncePerRequestFilter {
+public class JwtFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
 
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    public JwtFilter(JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = jwtTokenProvider.resolveToken(request);
+        String token = jwtProvider.resolveToken(request);
 
         if(token != null){
             try{
-                if(jwtTokenProvider.validateToken(token)){
-                    Authentication auth = jwtTokenProvider.getAuthentication(token);
+                if(jwtProvider.validateToken(token)){
+                    Authentication auth = jwtProvider.getAuthentication(token);
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
             }catch (JwtException | UsernameNotFoundException ex){
