@@ -4,8 +4,6 @@ package com.socialmediaplatform.infrastructure.repository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.socialmediaplatform.domain.user.User;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
