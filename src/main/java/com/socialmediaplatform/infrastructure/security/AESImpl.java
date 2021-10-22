@@ -35,7 +35,20 @@ public class AESImpl implements AES{
 
     @Override
     public String decrypt(String encryptedData) {
-
+        if(encryptedData == null){
+            return"";
+        }
+        Key key = generateKey();
+        try{
+            Cipher c = Cipher.getInstance(ALGORITHM);
+            c.init(Cipher.DECRYPT_MODE, key);
+            byte[] decodedValue = Base64.getDecoder().decode(encryptedData);
+            byte[] value = c.doFinal(decodedValue);
+            return new String(value);
+        }catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException| BadPaddingException e){
+            System.out.println(e);
+        }
+        return encryptedData;
     }
 
     private Key generateKey(){
