@@ -1,6 +1,5 @@
 package com.socialmediaplatform.domain.publisher;
 
-
 import java.util.Date;
 import java.util.List;
 
