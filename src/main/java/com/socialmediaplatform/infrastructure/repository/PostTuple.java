@@ -13,6 +13,7 @@ import java.util.Date;
 @Table(name = "posts")
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class PostTuple {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

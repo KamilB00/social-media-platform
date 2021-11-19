@@ -1,8 +1,15 @@
 package com.socialmediaplatform.domain.user;
 
 import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
+import com.socialmediaplatform.infrastructure.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +19,9 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     @Override
     public User createUser(Command.CreateUser createUserCommand) {
@@ -22,7 +32,7 @@ public class UserServiceImpl implements UserService {
         roles.add(Role.ROLE_CLIENT);
         User user = User.builder()
                 .username(createUserCommand.getUsername())
-                .password(createUserCommand.getPassword()) // TODO Password encode
+                .password(passwordEncoder.encode(createUserCommand.getPassword()))
                 .roles(roles)
                 .dateOfBirth(createUserCommand.getDateOfBirth())
                 .name(createUserCommand.getName())
@@ -34,7 +44,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(Query.Login login) {
-        return null;
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
+        return jwtProvider.createToken(login.getUsername(), userRepository.findByUsername(login.getUsername()).get().getRoles());
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 import com.socialmediaplatform.api.user.dto.UserLoginDTO;
 import com.socialmediaplatform.domain.user.User;
 import com.socialmediaplatform.domain.user.UserService;
+import com.socialmediaplatform.domain.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,9 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public String login(@RequestBody UserLoginDTO userDTO){
-        return userService.login(userDTO);
+    public String login(@RequestBody UserLoginDTO userLoginDTO){
+
+        return userService.login(userLoginDTO);
     }
 
     @GetMapping("/me")

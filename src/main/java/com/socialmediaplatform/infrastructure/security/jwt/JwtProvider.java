@@ -1,6 +1,5 @@
 package com.socialmediaplatform.infrastructure.security.jwt;
 
-import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 import com.socialmediaplatform.domain.user.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -8,12 +7,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
@@ -33,11 +35,12 @@ public class JwtProvider {
     private Key key;
 
     //30 minutes validity
-    @Value("{security.jwt.token.expire-length: 1800000}")
+    @Value("${security.jwt.token.expire-length:1800000}")
     private long validityTimeInMilliseconds;
 
     private final MyUserDetails myUserDetails;
 
+    @PostConstruct
     protected void init() {
         key = new SecretKeySpec(DatatypeConverter.parseBase64Binary(secretKey), SignatureAlgorithm.HS256.getJcaName());
     }
@@ -81,6 +84,7 @@ public class JwtProvider {
             throw new JwtException("JWT Token expired or invalid");
         }
     }
+
 }
 
 

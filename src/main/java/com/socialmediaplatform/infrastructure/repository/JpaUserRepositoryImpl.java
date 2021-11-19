@@ -4,6 +4,8 @@ import com.socialmediaplatform.domain.user.User;
 import com.socialmediaplatform.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,8 +28,10 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        // TODO
-        return Optional.empty();
+        Optional<UserTuple> userTupleOptional = jpaUserRepo.findByUsername(username);
+        if(userTupleOptional.isEmpty())
+            return Optional.empty();
+        return Optional.of(userTupleOptional.get().toDomain());
     }
 
     @Override
@@ -44,6 +48,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
     public interface JpaUserRepo extends JpaRepository<UserTuple, Long> {
+        Optional<UserTuple> findByUsername(String username);
 
     }
 }

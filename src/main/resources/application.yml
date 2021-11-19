@@ -5,6 +5,14 @@ spring:
     username: root
     password: password
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
+management:
+  server:
+    port: 8080
+security:
+  jwt:
+    token:
+      expire-length: 1800000
+      secret-key: Randomowe-znaczki-poto-zeby-klucz-byl-dlugi-i-bardzo-skompikowany-34ibity2yb2y3tnfdjns

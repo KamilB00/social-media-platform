@@ -1,7 +1,5 @@
 package com.socialmediaplatform.api.user.dto;
 
-import com.socialmediaplatform.api.publisher.dto.PostDtoWithId;
-import com.socialmediaplatform.domain.publisher.Post;
 import com.socialmediaplatform.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

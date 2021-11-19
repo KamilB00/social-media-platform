@@ -2,7 +2,6 @@ package com.socialmediaplatform.api.publisher;
 
 
 import com.socialmediaplatform.api.publisher.dto.PostDTO;
-import com.socialmediaplatform.api.publisher.dto.PostDtoWithId;
 import com.socialmediaplatform.domain.publisher.Post;
 import com.socialmediaplatform.domain.publisher.PublisherService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +16,8 @@ public class PublisherController {
     private final PublisherService postService;
 
     @PostMapping("/posts")
-    public PostDtoWithId createPost(@RequestBody PostDTO postDTO){
-        return PostDtoWithId.fromDomain(postService.createPost(postDTO));
+    public Post createPost(@RequestBody PostDTO postDTO){
+        return postService.createPost(postDTO);
     }
 
     @GetMapping("/posts")
