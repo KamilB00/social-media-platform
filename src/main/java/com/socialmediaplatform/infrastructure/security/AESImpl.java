@@ -1,7 +1,6 @@
 package com.socialmediaplatform.infrastructure.security;
 
 import org.springframework.stereotype.Component;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;

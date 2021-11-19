@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Table(name="users")
 
+@Table(name="users")
 public class UserTuple {
     @Id
     private String username;

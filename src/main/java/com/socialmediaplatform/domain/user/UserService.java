@@ -29,5 +29,8 @@ public interface UserService {
                 String getUsername();
                 String getPassword();
             }
+            interface Search extends Query{
+                String getUsername();
+            }
         }
 }

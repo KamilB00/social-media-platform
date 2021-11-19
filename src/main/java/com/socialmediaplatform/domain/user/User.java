@@ -8,13 +8,14 @@ import java.util.List;
 @Getter
 @Builder
 @EqualsAndHashCode(of = "username")
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    private final String username;
-    private final String password;
-    private final String name;
-    private final String surname;
-    private final String email;
-    private final Date dateOfBirth;
-    private final List<Role> roles;
+    private String username;
+    private String password;
+    private String name;
+    private String surname;
+    private String email;
+    private Date dateOfBirth;
+    private List<Role> roles;
 }

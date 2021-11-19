@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>social-media-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>social-media-api</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Social Media Platform API</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -86,7 +86,6 @@
             <artifactId>spring-security-web</artifactId>
             <version>5.5.3</version>
         </dependency>
-
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
