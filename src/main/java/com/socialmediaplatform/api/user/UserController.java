@@ -34,10 +34,6 @@ public class UserController {
         return userService.getUserDetails();
     }
 
-    // checking function to delete
-    @GetMapping
-    public List<UserDetailsDTO> getAllUsers(){
-        return userService.getAllUsers();
-    }
+
 
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Builder
@@ -14,14 +16,16 @@ public class UserDetailsDTO {
     private String username;
     private String name;
     private String surname;
+    private Date dateOfBirth;
     private String email;
 
-    // to delete
+
     public static UserDetailsDTO fromDomain(User user) {
         return UserDetailsDTO.builder()
                 .username(user.getUsername())
                 .name(user.getName())
                 .surname(user.getSurname())
+                .dateOfBirth(user.getDateOfBirth())
                 .email(user.getEmail())
                 .build();
     }

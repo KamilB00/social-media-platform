@@ -7,11 +7,9 @@ import java.util.List;
 
 public interface UserService {
     User createUser(Command.CreateUser createUserCommand);
+    User whoAmI();
     String login(Query.Login login);
     UserDetailsDTO getUserDetails();
-
-    //to delete
-    List<UserDetailsDTO> getAllUsers();
 
         interface Command {
             interface CreateUser extends Command {
