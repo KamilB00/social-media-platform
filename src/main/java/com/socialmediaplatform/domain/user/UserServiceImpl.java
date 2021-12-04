@@ -5,14 +5,11 @@ import com.socialmediaplatform.infrastructure.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -43,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User whoAmI() {
+        return search(() -> SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    @Override
     public String login(Query.Login login) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
         return jwtProvider.createToken(login.getUsername(), userRepository.findByUsername(login.getUsername()).get().getRoles());
@@ -50,15 +52,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailsDTO getUserDetails() {
-        return null;
+       User user = whoAmI();
+        return UserDetailsDTO.fromDomain(user);
     }
 
-    @Override
-    public List<UserDetailsDTO> getAllUsers() {
 
-       return userRepository.findAll().stream()
-                .map(user -> {
-               return UserDetailsDTO.fromDomain(user);
-                }).collect(Collectors.toList());
+    public User search(Query.Search querySearch){
+        return userRepository.findByUsername(querySearch.getUsername()).orElseThrow();
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.socialmediaplatform.domain.publisher;
+package com.socialmediaplatform.domain.post;
 
 import com.socialmediaplatform.domain.user.User;
 import java.util.List;

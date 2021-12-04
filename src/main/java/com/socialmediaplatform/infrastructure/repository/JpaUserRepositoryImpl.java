@@ -4,6 +4,7 @@ import com.socialmediaplatform.domain.user.User;
 import com.socialmediaplatform.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -21,12 +22,6 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        //TODO
-        return Optional.empty();
-    }
-
-    @Override
     public Optional<User> findByUsername(String username) {
         Optional<UserTuple> userTupleOptional = jpaUserRepo.findByUsername(username);
         if(userTupleOptional.isEmpty())
@@ -34,21 +29,10 @@ public class JpaUserRepositoryImpl implements UserRepository {
         return Optional.of(userTupleOptional.get().toDomain());
     }
 
-    @Override
-    public List<User> findAll() {
-        List<UserTuple> userTupleList = jpaUserRepo.findAll();
-        if (userTupleList.isEmpty())
-            return List.of();
-        return userTupleList.stream().map(UserTuple::toDomain).collect(Collectors.toList());
-    }
-
-    @Override
-    public void deleteByUsername(String username) {
-        // TODO
-    }
 
     public interface JpaUserRepo extends JpaRepository<UserTuple, Long> {
         Optional<UserTuple> findByUsername(String username);
+        void deleteByUsername(String username);
 
     }
 }

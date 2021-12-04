@@ -1,9 +1,9 @@
-package com.socialmediaplatform.domain.publisher;
+package com.socialmediaplatform.domain.post;
 
 import java.util.Date;
 import java.util.List;
 
-public interface PublisherService {
+public interface PostService {
    Post createPost(Command.CreatePost createPostCommand);
    List<Post> getAllPosts();
 

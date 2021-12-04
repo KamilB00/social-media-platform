@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -34,10 +34,6 @@ public class UserController {
         return userService.getUserDetails();
     }
 
-    // checking function to delete
-    @GetMapping
-    public List<UserDetailsDTO> getAllUsers(){
-        return userService.getAllUsers();
-    }
+
 
 }

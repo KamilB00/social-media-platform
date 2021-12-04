@@ -1,7 +1,7 @@
 package com.socialmediaplatform.infrastructure.repository;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.socialmediaplatform.domain.publisher.Post;
+import com.socialmediaplatform.domain.post.Post;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
