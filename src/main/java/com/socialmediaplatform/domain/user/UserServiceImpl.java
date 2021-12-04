@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
         return UserDetailsDTO.fromDomain(user);
     }
 
+
     public User search(Query.Search querySearch){
         return userRepository.findByUsername(querySearch.getUsername()).orElseThrow();
     }

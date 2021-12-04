@@ -1,4 +1,4 @@
-package com.socialmediaplatform.domain.publisher;
+package com.socialmediaplatform.domain.post;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PublisherServiceImpl implements PublisherService {
+public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 
