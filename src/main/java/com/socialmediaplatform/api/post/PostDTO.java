@@ -6,6 +6,7 @@ import com.socialmediaplatform.domain.post.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -34,10 +35,11 @@ public class PostDTO {
                 .map(CommentDTO::fromDomain)
                 .collect(toUnmodifiableList());
 
+
         var likes = post.getLikes().stream()
                 .map(Like::getUsername)
                 .collect(Collectors.toUnmodifiableSet());
 
-        return new PostDTO(post.getId(), post.getAuthor().getUsername(), post.getContent(), comments, likes, post.getPublishedAt(), post.isEdited());
+        return new PostDTO(post.getId(), post.getAuthor().getUsername(), post.getContent(),comments, likes, post.getPublishedAt(), post.isEdited());
     }
 }

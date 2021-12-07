@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +31,10 @@ public class PostServiceImpl implements PostService {
         Post post = Post.builder()
                 .author(userService.whoAmI())
                 .content(createPostCommand.getContent())
+                .isEdited(false)
+                //.comments(new ArrayList<>())
+                .publishedAt(LocalDateTime.now())
+                //.likes(new HashSet<>())
                 .build();
 
             return postRepository.save(post);
@@ -36,10 +42,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void comment(Command.Comment commandComment) {
-        Post post = postRepository.findById(commandComment.getPostId()).orElseThrow();
-        User author = userService.whoAmI();
-        post.getComments().add(new Comment(author, commandComment.getContent(), LocalDateTime.now()));
-        postRepository.save(post);
+//        Post post = postRepository.findById(commandComment.getPostId()).orElseThrow();
+//        User author = userService.whoAmI();
+//        post.getComments().add(new Comment(author, commandComment.getContent(), LocalDateTime.now()));
+//        postRepository.save(post);
     }
 
     @Override

@@ -1,17 +1,18 @@
 package com.socialmediaplatform.domain.post;
 
 import com.socialmediaplatform.domain.user.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Data
+@Builder
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class Comment {
     private Long id;
-    private final User author;
-    private final String content;
-    private final LocalDateTime at;
+    private User author;
+    private Post post;
+    private String content;
+    private LocalDateTime at;
 }

@@ -1,6 +1,7 @@
 package com.socialmediaplatform.infrastructure.repository;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.socialmediaplatform.domain.post.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,16 +23,36 @@ public class CommentTuple {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id", referencedColumnName = "id")
-    private  PostTuple postId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "post"), referencedColumnName = "id")
+    private  PostTuple post;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author", referencedColumnName = "username")
-    private UserTuple author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "comment_author"), referencedColumnName = "username")
+    private UserTuple commentAuthor;
 
     private LocalDateTime at;
 
     private String content;
+
+    static CommentTuple from(Comment comment){
+        return CommentTuple.builder()
+                .id(comment.getId())
+                .commentAuthor(UserTuple.from(comment.getAuthor()))
+                .post(PostTuple.from(comment.getPost()))
+                .at(comment.getAt())
+                .content(comment.getContent())
+                .build();
+    }
+
+    Comment toDomain(){
+        return Comment.builder()
+                .id(id)
+                .content(content)
+                .at(at)
+                .post(post.toDomain())
+                .author(commentAuthor.toDomain())
+                .build();
+    }
 
 }

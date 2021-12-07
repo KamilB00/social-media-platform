@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -16,8 +17,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Table(name="USERS")
-public class UserTuple {
+public class UserTuple implements Serializable {
+
     @Id
+    @Column(name = "username",unique=true,columnDefinition="VARCHAR(64)")
     private String username;
 
     @Size(min = 8)
@@ -38,6 +41,7 @@ public class UserTuple {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<RoleTuple> roles;
+
 
     static UserTuple from(User user){
         return  UserTuple.builder()
