@@ -2,6 +2,7 @@ package com.socialmediaplatform.domain.user;
 
 import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -9,16 +10,23 @@ public interface UserService {
     User createUser(Command.CreateUser createUserCommand);
     User whoAmI();
     String login(Query.Login login);
+    void follow(Command.Follow followCommand);
     UserDetailsDTO getUserDetails();
+    UserDetailsDTO getUserDetails(Query.Search querySearch);
+
 
         interface Command {
             interface CreateUser extends Command {
                 String getUsername();
                 String getPassword();
                 String getName();
-                Date getDateOfBirth();
+                LocalDateTime getDateOfBirth();
                 String getSurname();
                 String getEmail();
+            }
+
+            interface Follow extends Command {
+                String getUsername();
             }
         }
 

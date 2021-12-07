@@ -1,13 +1,13 @@
 package com.socialmediaplatform.infrastructure.repository;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.socialmediaplatform.domain.user.User;
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-
-@Table(name="users")
+@Table(name="USERS")
 public class UserTuple {
     @Id
     private String username;
@@ -26,28 +25,35 @@ public class UserTuple {
     private String name;
     private String surname;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true ,nullable = false)
     private String email;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern= "yyyy-MM-dd")
-    private Date dateOfBirth;
+    private LocalDateTime dateOfBirth;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> followers;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> following;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<RoleTuple> roles;
 
     static UserTuple from(User user){
-        return new UserTuple(
-                user.getUsername(),
-                user.getPassword(),
-                user.getName(),
-                user.getSurname(),
-                user.getEmail(),
-                user.getDateOfBirth(),
-                user.getRoles()==null ? List.of() :
-                        user.getRoles().stream().map(RoleTuple::from).collect(Collectors.toList())
-                );
+        return  UserTuple.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .email(user.getEmail())
+                .dateOfBirth(user.getDateOfBirth())
+                .followers(user.getFollowers().stream().map(String::valueOf).collect(Collectors.toSet()))
+                .following(user.getFollowing().stream().map(String::valueOf).collect(Collectors.toSet()))
+                .roles( user.getRoles()==null ? List.of() :
+                        user.getRoles().stream().map(RoleTuple::from).collect(Collectors.toList()))
+                .build();
     }
+
     User toDomain(){
         return User.builder()
                 .username(username)
@@ -56,6 +62,8 @@ public class UserTuple {
                 .surname(surname)
                 .email(email)
                 .dateOfBirth(dateOfBirth)
+                .followers(followers.stream().map(String::valueOf).collect(Collectors.toSet()))
+                .following(following.stream().map(String::valueOf).collect(Collectors.toSet()))
                 .roles(roles == null ?List.of(): roles.stream().map(RoleTuple::toDomain).collect(Collectors.toList()))
                 .build();
     }

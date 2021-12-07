@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 public class JpaPostRepositoryImpl implements PostRepository {
@@ -28,11 +30,6 @@ public class JpaPostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Optional<Post> findByIdAndUser(Long id, User user) {
-        return Optional.empty();
-    }
-
-    @Override
     public List<Post> findAllByUser(User user) {
         return null;
     }
@@ -46,6 +43,15 @@ public class JpaPostRepositoryImpl implements PostRepository {
     public void delete(Post post) {
 
     }
+
+    @Override
+    public List<Post> findAllByUsers(Set<User> followers) {
+        Set<String> usernames = followers.stream().map(User::getUsername).collect(Collectors.toUnmodifiableSet());
+        return jpaPostRepo.findAll().stream()
+                .filter(post -> usernames.contains(post.getAuthor().getUsername()))
+                .map(PostTuple::toDomain).collect(Collectors.toUnmodifiableList());
+    }
+
 
     public interface JpaPostRepo extends JpaRepository<PostTuple, Long> {
         List<PostTuple> findAllByAuthor(UserTuple author);

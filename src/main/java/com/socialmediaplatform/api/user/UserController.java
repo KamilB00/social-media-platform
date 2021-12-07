@@ -5,11 +5,10 @@ import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 import com.socialmediaplatform.api.user.dto.UserLoginDTO;
 import com.socialmediaplatform.domain.user.User;
 import com.socialmediaplatform.domain.user.UserService;
-import com.socialmediaplatform.domain.user.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,6 +22,7 @@ public class UserController {
         return userService.createUser(userDTO);
     }
 
+
     @PostMapping("/signin")
     public String login(@RequestBody UserLoginDTO userLoginDTO){
 
@@ -30,10 +30,27 @@ public class UserController {
     }
 
     @GetMapping("/me")
+    @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
     public UserDetailsDTO getUserDetails(){
         return userService.getUserDetails();
     }
 
+    @GetMapping("/{username}")
+    @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
+    public UserDetailsDTO getUserDetails (@PathVariable String username){
+       return userService.getUserDetails(() -> username);
+    }
 
+    @PostMapping("/{username}/follow")
+    @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
+    public void follow(@PathVariable String username){
+        userService.follow(() -> username);
+    }
+
+    @DeleteMapping("/{username}/unfollow")
+    @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
+    public void unfollow(@PathVariable String username){
+        //TODO2
+    }
 
 }

@@ -1,17 +1,22 @@
 package com.socialmediaplatform.domain.post;
 
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
+
 
 public interface PostService {
    Post createPost(Command.CreatePost createPostCommand);
-   List<Post> getAllPosts();
+   List<Post> getMyFeed();
+   void comment(Command.Comment commandComment);
 
-   interface Command {
+
+    interface Command {
       interface CreatePost extends Command{
-        boolean isEdited();
-        String getContent();
-        Date getPublicationDate();
+          String getContent();
+      }
+      interface Comment extends Command{
+          Long getPostId();
+          String getContent();
       }
    }
 

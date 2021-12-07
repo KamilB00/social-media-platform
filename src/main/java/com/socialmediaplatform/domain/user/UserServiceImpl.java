@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 
 @RequiredArgsConstructor
@@ -35,6 +36,8 @@ public class UserServiceImpl implements UserService {
                 .name(createUserCommand.getName())
                 .surname(createUserCommand.getSurname())
                 .email(createUserCommand.getEmail())
+                .following(new HashSet<>())
+                .followers(new HashSet<>())
                 .build();
         return userRepository.save(user);
     }
@@ -47,7 +50,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(Query.Login login) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
-        return jwtProvider.createToken(login.getUsername(), userRepository.findByUsername(login.getUsername()).get().getRoles());
+        return jwtProvider.createToken(login.getUsername(), userRepository.findByUsername(login.getUsername()).orElseThrow().getRoles());
+    }
+
+    @Override
+    public void follow(Command.Follow followCommand) {
+        var me = whoAmI();
+        var user = search(followCommand::getUsername);
+        if(userRepository.findByUsername(followCommand.getUsername()).isPresent()) {
+            me.getFollowing().add(followCommand.getUsername());
+            user.getFollowers().add(me.getUsername());
+
+            userRepository.save(me);
+            userRepository.save(user);
+        }
     }
 
     @Override
@@ -56,10 +72,14 @@ public class UserServiceImpl implements UserService {
         return UserDetailsDTO.fromDomain(user);
     }
 
+    @Override
+    public UserDetailsDTO getUserDetails(Query.Search querySearch) {
+        User user = search(querySearch);
+        return UserDetailsDTO.fromDomain(user);
+    }
 
     public User search(Query.Search querySearch){
         return userRepository.findByUsername(querySearch.getUsername()).orElseThrow();
     }
-
 
 }
