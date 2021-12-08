@@ -32,8 +32,8 @@ public class PostController {
 
     @PutMapping("/{id}")
     @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
-    public void update(@PathVariable Long id, String content){
-        //TODO2
+    public PostDTO update(@PathVariable Long id, String content){
+        return PostDTO.fromDomain(postService.updatePost(id,content));
     }
 
     @PostMapping("/{id}/comments")
@@ -44,12 +44,12 @@ public class PostController {
             public Long getPostId() {
                 return id;
             }
-
             @Override
             public String getContent() {
                 return content;
             }
         });
+
     }
 
     @PutMapping("/{id}/comments")
@@ -69,7 +69,7 @@ public class PostController {
     @PostMapping("/{id}/like")
     @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
     public void like(@PathVariable Long id){
-
+        postService.like(() -> id);
     }
 
     @DeleteMapping("/{id}/unlike")

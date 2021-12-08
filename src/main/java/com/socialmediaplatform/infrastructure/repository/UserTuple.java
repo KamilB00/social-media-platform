@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -66,8 +67,8 @@ public class UserTuple implements Serializable {
                 .surname(surname)
                 .email(email)
                 .dateOfBirth(dateOfBirth)
-                .followers(followers.stream().map(String::valueOf).collect(Collectors.toSet()))
-                .following(following.stream().map(String::valueOf).collect(Collectors.toSet()))
+                .followers(followers == null ? new HashSet<>() : followers.stream().map(String::valueOf).collect(Collectors.toSet()))
+                .following(following == null ? new HashSet<>() : following.stream().map(String::valueOf).collect(Collectors.toSet()))
                 .roles(roles == null ?List.of(): roles.stream().map(RoleTuple::toDomain).collect(Collectors.toList()))
                 .build();
     }

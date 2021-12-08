@@ -37,8 +37,8 @@ public class PostDTO {
 
 
         var likes = post.getLikes().stream()
-                .map(Like::getUsername)
-                .collect(Collectors.toUnmodifiableSet());
+                .map(String::valueOf)
+                .collect(Collectors.toSet());
 
         return new PostDTO(post.getId(), post.getAuthor().getUsername(), post.getContent(),comments, likes, post.getPublishedAt(), post.isEdited());
     }

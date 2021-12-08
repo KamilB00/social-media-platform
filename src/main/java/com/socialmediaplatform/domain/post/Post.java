@@ -9,15 +9,18 @@ import java.util.List;
 import java.util.Set;
 
 @Getter
+@Setter
 @Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Post {
     private final Long id;
     private final User author;
-    private final String content;
-    private final boolean isEdited;
-    private final LocalDateTime publishedAt;
-    private final List<Comment> comments;
-    private final Set<Like> likes;
+    private String content;
+    private boolean isEdited;
+    private LocalDateTime publishedAt;
+    private List<Comment> comments;
+    private Set<String> likes;
+
 
 }

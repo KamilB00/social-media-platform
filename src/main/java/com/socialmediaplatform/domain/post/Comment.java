@@ -5,12 +5,12 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Comment {
-    private Long id;
+    private final Long id;
     private User author;
     private Post post;
     private String content;

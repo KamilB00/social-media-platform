@@ -39,7 +39,6 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     public interface JpaUserRepo extends JpaRepository<UserTuple, Long> {
         Optional<UserTuple> findByUsername(String username);
-        void deleteByUsername(String username);
 
     }
 }

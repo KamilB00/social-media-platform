@@ -1,5 +1,6 @@
 package com.socialmediaplatform.domain.user;
 
+import com.socialmediaplatform.domain.post.Post;
 import lombok.*;
 
 
@@ -19,6 +20,7 @@ public class User {
     private String surname;
     private String email;
     private LocalDateTime dateOfBirth;
+    private List<Post> posts;
     private List<Role> roles;
     private Set<String> followers;
     private Set<String> following;

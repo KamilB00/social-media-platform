@@ -7,6 +7,8 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,13 +31,12 @@ public class PostTuple {
     @JoinColumn(foreignKey = @ForeignKey(name = "author"), referencedColumnName = "username")
     private UserTuple author;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CommentTuple> comments;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private Set<LikeEntity> likes;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> likes;
 
     private String content;
 
@@ -48,16 +49,19 @@ public class PostTuple {
                 .content(post.getContent())
                 .isEdited(post.isEdited())
                 .at(post.getPublishedAt())
-                .comments(post.getComments() == null ? List.of() : post.getComments().stream().map(CommentTuple::from).collect(Collectors.toList()))
+                .comments(post.getComments() == null ? new ArrayList<>() : post.getComments().stream().map(CommentTuple::from).collect(Collectors.toList()))
+                .likes(post.getLikes() == null ? new HashSet<>() : post.getLikes().stream().map(String::valueOf).collect(Collectors.toSet()))
                 .build();
     }
+
     Post toDomain(){
         return Post.builder()
                 .id(id)
                 .isEdited(isEdited)
                 .author(author.toDomain())
                 .content(content)
-                .comments(comments == null ? List.of() : comments.stream().map(CommentTuple::toDomain).collect(Collectors.toList()))
+                .comments(comments == null ? new ArrayList<>() : comments.stream().map(CommentTuple::toDomain).collect(Collectors.toList()))
+                .likes(likes == null ? new HashSet<>() : likes.stream().map(String::valueOf).collect(Collectors.toSet()))
                 .publishedAt(at)
                 .build();
     }

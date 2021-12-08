@@ -26,7 +26,7 @@ public class JpaPostRepositoryImpl implements PostRepository {
 
     @Override
     public Optional<Post> findById(Long id) {
-        return Optional.empty();
+        return Optional.of(jpaPostRepo.findAllById(id).orElseThrow().toDomain());
     }
 
     @Override
@@ -55,6 +55,7 @@ public class JpaPostRepositoryImpl implements PostRepository {
 
     public interface JpaPostRepo extends JpaRepository<PostTuple, Long> {
         List<PostTuple> findAllByAuthor(UserTuple author);
+        Optional<PostTuple> findAllById(Long id);
         Optional<PostTuple> findAllByIdAndAuthor(Long id, UserTuple author);
     }
 }
