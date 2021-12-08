@@ -13,9 +13,9 @@
     <version>1.0.0</version>
     <name>social-media-api</name>
     <description>Social Media Platform API</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+<!--    <properties>-->
+<!--        <java.version>11</java.version>-->
+<!--    </properties>-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
