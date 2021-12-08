@@ -20,7 +20,6 @@ public class User {
     private String surname;
     private String email;
     private LocalDateTime dateOfBirth;
-    private List<Post> posts;
     private List<Role> roles;
     private Set<String> followers;
     private Set<String> following;

@@ -4,5 +4,10 @@
       "name": "datasource.platform",
       "type": "java.lang.String",
       "description": "Description for datasource.platform."
-  }
-] }
+    },
+    {
+      "name": "java.runtime",
+      "type": "java.lang.String",
+      "description": "Description for java.runtime."
+    }
+  ] }
