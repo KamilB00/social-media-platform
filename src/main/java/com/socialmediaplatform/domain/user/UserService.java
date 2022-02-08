@@ -3,8 +3,6 @@ package com.socialmediaplatform.domain.user;
 import com.socialmediaplatform.api.user.dto.UserDetailsDTO;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 public interface UserService {
     User createUser(Command.CreateUser createUserCommand);

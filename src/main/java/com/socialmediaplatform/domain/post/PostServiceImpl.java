@@ -1,6 +1,5 @@
 package com.socialmediaplatform.domain.post;
 
-import com.socialmediaplatform.domain.user.Follow;
 import com.socialmediaplatform.domain.user.User;
 import com.socialmediaplatform.domain.user.UserRepository;
 import com.socialmediaplatform.domain.user.UserService;

@@ -37,6 +37,7 @@ public class PostTuple {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> likes;
+    
 
     private String content;
 

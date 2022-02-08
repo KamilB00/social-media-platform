@@ -1,7 +1,6 @@
 package com.socialmediaplatform.api.post;
 
 import com.socialmediaplatform.domain.post.PostService;
-import com.socialmediaplatform.domain.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;

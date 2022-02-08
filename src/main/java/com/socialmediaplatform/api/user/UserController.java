@@ -22,7 +22,6 @@ public class UserController {
         return userService.createUser(userDTO);
     }
 
-
     @PostMapping("/signin")
     public String login(@RequestBody UserLoginDTO userLoginDTO){
         return userService.login(userLoginDTO);

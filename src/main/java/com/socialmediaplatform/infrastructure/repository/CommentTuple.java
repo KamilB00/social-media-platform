@@ -1,6 +1,5 @@
 package com.socialmediaplatform.infrastructure.repository;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.socialmediaplatform.domain.post.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

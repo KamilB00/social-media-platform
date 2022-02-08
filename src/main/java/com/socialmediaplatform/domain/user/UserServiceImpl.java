@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void follow(Command.Follow followCommand) {
-        var me = whoAmI();
-        var user = search(followCommand::getUsername);
+        User me = whoAmI();
+        User user = search(followCommand::getUsername);
         if(userRepository.findByUsername(followCommand.getUsername()).isPresent()) {
             me.getFollowing().add(followCommand.getUsername());
             user.getFollowers().add(me.getUsername());
