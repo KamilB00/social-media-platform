@@ -4,9 +4,9 @@ java:
 
 spring:
   datasource:
-    url: jdbc:mysql://social-platform-db.capgqwk9ar5x.us-east-2.rds.amazonaws.com:3306/socialplatformdb
-    username: kamil
-    password: bardzo-s1lne-hasl0
+    url: jdbc:mysql://localhost:3306/social-media-db
+    username: root
+    password: password
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
