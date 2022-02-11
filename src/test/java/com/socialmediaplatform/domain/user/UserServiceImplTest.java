@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -70,5 +71,17 @@ class UserServiceImplTest {
         assertEquals(user.getRoles(),createdUser.getRoles());
         assertEquals(user.getFollowers(),createdUser.getFollowers());
         assertEquals(user.getFollowing(), createdUser.getFollowing());
+    }
+
+    @Test
+    void shouldNotCreateExistingUser() {
+        UserDTO userDTO = UserDTO.builder()
+                .username("example")
+                .build();
+        User user = User.builder().build();
+
+        when(userRepository.findByUsername(userDTO.getUsername())).thenReturn(Optional.of(user));
+
+        assertThrows(IllegalArgumentException.class, () -> userService.createUser(userDTO));
     }
 }
