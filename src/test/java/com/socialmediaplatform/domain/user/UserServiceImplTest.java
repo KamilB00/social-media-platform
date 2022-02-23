@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -46,7 +47,7 @@ class UserServiceImplTest {
                 .password("example")
                 .name("Name")
                 .surname("Surname")
-                .dateOfBirth(LocalDateTime.of(2000,01,01,12,0,0))
+                .dateOfBirth(LocalDate.of(2000,1,1))
                 .email("example@email.pl")
                 .build();
 
@@ -55,7 +56,7 @@ class UserServiceImplTest {
                 .password("example")
                 .name("Name")
                 .surname("Surname")
-                .dateOfBirth(LocalDateTime.of(2000,01,01,12,0,0))
+                .dateOfBirth(LocalDate.of(2000,1,1))
                 .email("example@email.pl")
                 .roles(List.of(Role.ROLE_CLIENT))
                 .followers(Collections.emptySet())
@@ -101,7 +102,7 @@ class UserServiceImplTest {
                 .password("pass")
                 .name("Name")
                 .surname("Surname")
-                .dateOfBirth(LocalDateTime.of(2000,01,01,12,0,0))
+                .dateOfBirth(LocalDate.of(2000,01,01))
                 .email("example@email.pl")
                 .roles(List.of(Role.ROLE_CLIENT))
                 .followers(Collections.emptySet())

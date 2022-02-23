@@ -11,6 +11,5 @@ public interface PostRepository{
     Optional<Post> findById(Long id);
     List<Post> findAllByUser(User user);
     List<Post> findAll();
-    void delete(Post post);
     List<Post> findAllByUsers(Set<User> followers);
 }

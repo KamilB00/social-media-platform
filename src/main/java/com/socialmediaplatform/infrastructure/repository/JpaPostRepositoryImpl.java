@@ -38,10 +38,6 @@ public class JpaPostRepositoryImpl implements PostRepository {
         return null;
     }
 
-    @Override
-    public void delete(Post post) {
-
-    }
 
     @Override
     public List<Post> findAllByUsers(Set<User> followers) {

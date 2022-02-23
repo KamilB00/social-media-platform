@@ -31,7 +31,7 @@ public class PostServiceImpl implements PostService {
                 .author(userService.whoAmI())
                 .content(createPostCommand.getContent())
                 .isEdited(false)
-                .comments(new ArrayList<>())
+                .comments(new HashSet<>())
                 .publishedAt(LocalDateTime.now())
                 .likes(new HashSet<>())
                 .build();

@@ -36,6 +36,8 @@ public class UserServiceImpl implements UserService {
                 .name(createUserCommand.getName())
                 .surname(createUserCommand.getSurname())
                 .email(createUserCommand.getEmail())
+                .posts(new HashSet<>())
+                .comments(new HashSet<>())
                 .following(new HashSet<>())
                 .followers(new HashSet<>())
                 .build();

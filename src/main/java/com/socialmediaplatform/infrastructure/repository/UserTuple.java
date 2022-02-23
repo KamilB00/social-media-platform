@@ -7,17 +7,16 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@Data
 @Entity
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Table(name = "users")
-public class UserTuple implements Serializable {
+public class UserTuple extends BaseTuple implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +38,22 @@ public class UserTuple implements Serializable {
     @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank
+    @NotNull
     private LocalDate dateOfBirth;
+
+    @OneToMany(
+            mappedBy = "author",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<PostTuple> posts;
+
+    @OneToMany(
+            mappedBy = "commentAuthor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<CommentTuple> comments;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> followers;
@@ -54,12 +67,15 @@ public class UserTuple implements Serializable {
 
     static UserTuple from(User user) {
         return UserTuple.builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .name(user.getName())
                 .surname(user.getSurname())
                 .email(user.getEmail())
                 .dateOfBirth(user.getDateOfBirth())
+                .comments(user.getComments().stream().map(CommentTuple::from).collect(Collectors.toSet()))
+                .posts(user.getPosts().stream().map(PostTuple::from).collect(Collectors.toSet()))
                 .followers(user.getFollowers().stream().map(String::valueOf).collect(Collectors.toSet()))
                 .following(user.getFollowing().stream().map(String::valueOf).collect(Collectors.toSet()))
                 .roles(user.getRoles() == null ? List.of() :
@@ -69,16 +85,18 @@ public class UserTuple implements Serializable {
 
     User toDomain() {
         return User.builder()
+                .id(id)
                 .username(username)
                 .password(password)
                 .name(name)
                 .surname(surname)
                 .email(email)
                 .dateOfBirth(dateOfBirth)
+                .comments(comments == null ? new HashSet<>() : comments.stream().map(CommentTuple::toDomain).collect(Collectors.toSet()))
+                .posts(posts == null ? new HashSet<>() : posts.stream().map(PostTuple::toDomain).collect(Collectors.toSet()))
                 .followers(followers == null ? new HashSet<>() : followers.stream().map(String::valueOf).collect(Collectors.toSet()))
                 .following(following == null ? new HashSet<>() : following.stream().map(String::valueOf).collect(Collectors.toSet()))
                 .roles(roles == null ? List.of() : roles.stream().map(RoleTuple::toDomain).collect(Collectors.toList()))
                 .build();
     }
-
 }

@@ -1,38 +1,39 @@
 package com.socialmediaplatform.infrastructure.repository;
 
 import com.socialmediaplatform.domain.post.Comment;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 
-@Data
+
 @Entity
 @Builder
-@Table(name = "COMMENTS")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Table(name = "comments")
+public class CommentTuple extends BaseTuple{
 
-public class CommentTuple {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    private LocalDateTime at;
+
+    @Size(min = 1, max = 126)
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "post"), referencedColumnName = "id")
+    @JoinColumn(name = "post_id")
     private  PostTuple post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "comment_author"), referencedColumnName = "username")
+    @JoinColumn(name = "author_id")
     private UserTuple commentAuthor;
-
-    private LocalDateTime at;
-
-    private String content;
 
     static CommentTuple from(Comment comment){
         return CommentTuple.builder()

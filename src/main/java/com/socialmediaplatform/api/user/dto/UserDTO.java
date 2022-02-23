@@ -17,6 +17,6 @@ public class UserDTO implements UserService.Command.CreateUser {
     private String password;
     private String name;
     private String surname;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
 }

@@ -5,7 +5,7 @@ spring:
     username: postgres
     password: mysecretpassword
   jpa:
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create-drop
     generate-ddl: true
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
