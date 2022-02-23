@@ -1,10 +1,9 @@
 package com.socialmediaplatform.domain.user;
 
-import com.socialmediaplatform.domain.post.Post;
 import lombok.*;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     private List<Role> roles;
     private Set<String> followers;
     private Set<String> following;

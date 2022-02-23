@@ -1,0 +1,11 @@
+# PostgreSQL PROD config
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-52-19-164-214.eu-west-1.compute.amazonaws.com:5432/d610lsijk7uf6
+    username: wlrwrpfgdefjma
+    password: 2148fc8bc58b52165c46388452dd8cd1be4b5abf33199e4b2571dfb2d366c6aa
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

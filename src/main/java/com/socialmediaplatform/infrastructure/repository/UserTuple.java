@@ -4,9 +4,9 @@ import com.socialmediaplatform.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,23 +16,31 @@ import java.util.stream.Collectors;
 @Entity
 @Builder
 @RequiredArgsConstructor
-@AllArgsConstructor
-@Table(name="USERS")
+@Table(name = "users")
 public class UserTuple implements Serializable {
 
     @Id
-    @Column(name = "username",unique=true,columnDefinition="VARCHAR(64)")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
     private String username;
 
-    @Size(min = 8)
+    @Size(min = 8, max = 30, message = "Password must have between 8 and 30 characters")
     private String password;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String surname;
 
-    @Column(unique = true ,nullable = false)
+    @Column(unique = true, nullable = false)
+    @Email(message = "Invalid email format")
     private String email;
 
-    private LocalDateTime dateOfBirth;
+    @NotBlank
+    private LocalDate dateOfBirth;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> followers;
@@ -44,8 +52,8 @@ public class UserTuple implements Serializable {
     private List<RoleTuple> roles;
 
 
-    static UserTuple from(User user){
-        return  UserTuple.builder()
+    static UserTuple from(User user) {
+        return UserTuple.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .name(user.getName())
@@ -54,12 +62,12 @@ public class UserTuple implements Serializable {
                 .dateOfBirth(user.getDateOfBirth())
                 .followers(user.getFollowers().stream().map(String::valueOf).collect(Collectors.toSet()))
                 .following(user.getFollowing().stream().map(String::valueOf).collect(Collectors.toSet()))
-                .roles( user.getRoles()==null ? List.of() :
+                .roles(user.getRoles() == null ? List.of() :
                         user.getRoles().stream().map(RoleTuple::from).collect(Collectors.toList()))
                 .build();
     }
 
-    User toDomain(){
+    User toDomain() {
         return User.builder()
                 .username(username)
                 .password(password)
@@ -69,7 +77,7 @@ public class UserTuple implements Serializable {
                 .dateOfBirth(dateOfBirth)
                 .followers(followers == null ? new HashSet<>() : followers.stream().map(String::valueOf).collect(Collectors.toSet()))
                 .following(following == null ? new HashSet<>() : following.stream().map(String::valueOf).collect(Collectors.toSet()))
-                .roles(roles == null ?List.of(): roles.stream().map(RoleTuple::toDomain).collect(Collectors.toList()))
+                .roles(roles == null ? List.of() : roles.stream().map(RoleTuple::toDomain).collect(Collectors.toList()))
                 .build();
     }
 

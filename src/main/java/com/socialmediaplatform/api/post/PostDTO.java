@@ -1,13 +1,9 @@
 package com.socialmediaplatform.api.post;
 
-import com.socialmediaplatform.domain.post.Comment;
-import com.socialmediaplatform.domain.post.Like;
 import com.socialmediaplatform.domain.post.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

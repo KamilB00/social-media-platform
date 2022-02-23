@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -17,7 +17,7 @@ public class UserDetailsDTO {
     private String username;
     private String name;
     private String surname;
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
     private Set<String> followers;
     private Set<String> following;

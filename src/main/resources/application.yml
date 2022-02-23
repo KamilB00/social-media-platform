@@ -1,27 +1,20 @@
-java:
-  runtime:
-    version: '11'
-
+# default local profile
 spring:
-  datasource:
-    url: jdbc:postgresql://ec2-52-19-164-214.eu-west-1.compute.amazonaws.com:5432/d610lsijk7uf6
-    username: wlrwrpfgdefjma
-    password: 2148fc8bc58b52165c46388452dd8cd1be4b5abf33199e4b2571dfb2d366c6aa
-  jpa:
-    hibernate.ddl-auto: create
-    generate-ddl: true
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  profiles:
+    active: dev
 
 management:
   server:
     port: 8080
+
+# JWT configuration
 security:
   jwt:
     token:
       expire-length: 1800000
       secret-key: Randomowe-znaczki-poto-zeby-klucz-byl-dlugi-i-bardzo-skompikowany-34ibity2yb2y3tnfdjns
 
+# Open API configuration
 springdoc:
   swagger-ui:
     path: "/swagger-ui.html"
