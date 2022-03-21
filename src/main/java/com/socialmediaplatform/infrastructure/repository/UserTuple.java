@@ -25,7 +25,7 @@ public class UserTuple extends BaseTuple implements Serializable {
     @NotNull
     private String username;
 
-    @Size(min = 8, max = 30, message = "Password must have between 8 and 30 characters")
+    @Size(min = 10, max = 20)
     private String password;
 
     @NotNull

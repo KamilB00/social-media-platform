@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
-@Setter
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -19,7 +18,19 @@ public class Post {
     private boolean isEdited;
     private LocalDateTime publishedAt;
     private Set<Comment> comments;
-    private Set<String> likes;
+    private Set<Long> likes;
 
+    void updateContent(String content) {
+        this.content = content;
+        isEdited = true;
+        publishedAt = LocalDateTime.now();
+    }
+    String getTitle() {
+        return author.getName() + " " + content.substring(10) + "... " + publishedAt.toString();
+    }
+
+    String getAuthorsName() {
+        return author.getName();
+    }
 
 }

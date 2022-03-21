@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ public class PostTuple extends BaseTuple {
 
     @NotNull
     private boolean isEdited;
-
+    
     @Size(min = 1, max = 256)
     private String content;
 
@@ -64,7 +63,7 @@ public class PostTuple extends BaseTuple {
                 .author(author.toDomain())
                 .content(content)
                 .comments(comments == null ? new HashSet<>() : comments.stream().map(CommentTuple::toDomain).collect(Collectors.toSet()))
-                .likes(likes == null ? new HashSet<>() : likes.stream().map(String::valueOf).collect(Collectors.toSet()))
+                .likes(likes == null ? new HashSet<>() : likes.stream().map(Long::valueOf).collect(Collectors.toSet()))
                 .publishedAt(at)
                 .build();
     }

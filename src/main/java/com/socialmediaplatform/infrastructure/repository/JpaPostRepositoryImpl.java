@@ -24,8 +24,8 @@ public class JpaPostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
-        return Optional.of(jpaPostRepo.findAllById(id).orElseThrow().toDomain());
+    public Post findById(Long id) {
+        return jpaPostRepo.findById(id).orElseThrow().toDomain();
     }
 
     @Override

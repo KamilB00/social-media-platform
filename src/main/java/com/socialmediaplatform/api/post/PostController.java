@@ -71,6 +71,7 @@ public class PostController {
         postService.like(() -> id);
     }
 
+
     @DeleteMapping("/{id}/unlike")
     @Operation(summary = "user details", security = @SecurityRequirement(name = "bearer"))
     public void unlike(@PathVariable Long id) {

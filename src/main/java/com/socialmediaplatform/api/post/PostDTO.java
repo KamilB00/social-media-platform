@@ -4,11 +4,8 @@ import com.socialmediaplatform.domain.post.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
 
 @Getter
 @Setter
@@ -20,7 +17,7 @@ public class PostDTO {
     private Long id;
     private String authorUsername;
     private String content;
-    private List<CommentDTO> comments;
+    private Set<CommentDTO> comments;
     private Set<String> usersLikes;
     private LocalDateTime publicationDate;
     private Boolean isEdited;
@@ -29,7 +26,7 @@ public class PostDTO {
     public static PostDTO fromDomain(Post post) {
         var comments = post.getComments().stream()
                 .map(CommentDTO::fromDomain)
-                .collect(toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableSet());
 
 
         var likes = post.getLikes().stream()

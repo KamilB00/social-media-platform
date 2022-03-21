@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final UserService userService;
@@ -42,7 +40,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void comment(Command.Comment commandComment) {
-        Post post = postRepository.findById(commandComment.getPostId()).orElseThrow();
+        Post post = postRepository.findById(commandComment.getPostId());
         User author = userService.whoAmI();
         post.getComments().add(new Comment(null,author, post, commandComment.getContent(), LocalDateTime.now()));
         postRepository.save(post);
@@ -50,25 +48,21 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void like(Command.Like commandLike) {
-        Post post = postRepository.findById(commandLike.getPostId()).orElseThrow();
+        Post post = postRepository.findById(commandLike.getPostId());
         User user = userService.whoAmI();
-        post.getLikes().add(user.getUsername());
+        post.getLikes().add(user.getId());
         postRepository.save(post);
     }
 
     @Override
     public Post updatePost(Long id, String content) {
-        Post post = postRepository.findById(id).orElseThrow();
+        Post post = postRepository.findById(id);
 
-        if(post.getAuthor().getUsername().equals(userService.whoAmI().getUsername())){
-            post.setContent(content);
-            post.setEdited(true);
-            post.setPublishedAt(LocalDateTime.now());
+        if(post.getAuthorsName().equals(userService.whoAmI().getUsername())){
+            post.updateContent(content);
         }
-
         return postRepository.save(post);
     }
-
 
     @Override
     public List<Post> getMyFeed() {
